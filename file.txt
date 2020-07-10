@@ -1,0 +1,17 @@
+﻿               BUTTON
+              FUNCTIONALITIES
+1 input type select
+     dropdown
+2  display words to select(hindhi eng)        
+     Onchange-display words to select
+3  input type button(words to select)
+     Onclick-hide the button, display          word on the button as text
+4  rearrange the word-input type button 
+     Onclick-hide the text and display all buttons 
+5 input type button(check the correctness of the sentence)
+      Onclick compare the entered text with actual text if it matches alert success message else alert wrong message
+6 input button type(get answer)
+      Onclick show the correct answer and change text on the button to hide answer
+7 inupt type button
+       Onclick delete displaying coorect answer and change on the button to correct answer
+
