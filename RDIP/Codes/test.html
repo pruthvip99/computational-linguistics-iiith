@@ -1,0 +1,32 @@
+
+<html>
+    <head>
+        <script>
+           
+
+//function test2()
+        function test2(sentence)
+        {
+          
+            var engSentence = ["I told her that I bought a book yesterday","the teacher returned the book after she noticed the error","John ate an apple so did she","John ate an apple before afternoon", "some students like to study in the night", "John and Mary went to church","John went to church after eating","did he go to market","the woman who called my sister sells cosmetics","John goes to the library and studies"];
+            var words2=sentence.split("");
+
+            for(i=0;i<engSentence.length;i++)
+            {
+            var testSen=engSentence[i];
+            var words1=testSen.split(" ");
+            
+                if(JSON.stringify(words1.sort())==JSON.stringify(words2.sort()))
+                {
+                        alert(i) ;
+                }
+            }
+        }
+        </script>
+    </head>
+    <body>
+        <p>test</p>
+        <input type="button" onclick="test2('the teacher returned the book after she noticed the error')" value="Click">
+    </body>
+</html>
+
