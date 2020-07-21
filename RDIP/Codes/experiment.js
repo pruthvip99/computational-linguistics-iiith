@@ -1,4 +1,4 @@
-function displayWords(val)
+function displayWords(val)//displaying the word function is added here
 {
   var sentence=" ";
   if (val=='english') 
