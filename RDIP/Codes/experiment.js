@@ -24,7 +24,7 @@ function displayWords(val)
           var cell1 = row.insertCell(0);                  
           cell1.innerHTML = "<input type = 'button' id='"+i+"' value = '"+nam+"' onClick = 'displaytheText(this)' >";   
         }   
-}
+}//language selection dropdown
 
 function selectEnglishSentences()
 {
