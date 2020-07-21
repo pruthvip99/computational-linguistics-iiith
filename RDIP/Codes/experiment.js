@@ -103,7 +103,7 @@ function displaytheText(field)
   }
  }
 
- function checkCorrect()
+ function checkCorrect()//checking the correctness of the sentence
  {
   table=document.getElementById("sentences");
 var SelectedSentence='';
