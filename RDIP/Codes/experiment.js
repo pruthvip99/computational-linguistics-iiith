@@ -75,7 +75,7 @@ function displaytheText(field)
     }  
  }
 
- function reformSentence()
+ function reformSentence()//word selection function added here
  {
   table=document.getElementById("sentences");
   table.deleteRow(3);
