@@ -179,7 +179,7 @@ var x=test2(SelectedSentence.trim());
 			return i
         }
 		
-function getSentenceArray()
+function getSentenceArray()//gettign the correct sentence
 {
 	let lang=document.getElementById("language").value
 	var testArr;
