@@ -1,4 +1,4 @@
-function displayWords(val)//displaying the word function is added here
+function displayWords(val)
 {
   var sentence=" ";
   if (val=='english') 
@@ -24,7 +24,7 @@ function displayWords(val)//displaying the word function is added here
           var cell1 = row.insertCell(0);                  
           cell1.innerHTML = "<input type = 'button' id='"+i+"' value = '"+nam+"' onClick = 'displaytheText(this)' >";   
         }   
-}//language selection dropdown
+}
 
 function selectEnglishSentences()
 {
@@ -75,7 +75,7 @@ function displaytheText(field)
     }  
  }
 
- function reformSentence()//word selection function added here
+ function reformSentence()
  {
   table=document.getElementById("sentences");
   table.deleteRow(3);
@@ -90,6 +90,8 @@ function displaytheText(field)
   }
  }
 
+ 
+ 
  function checkComplete(tab,tabRow)
  {
   if(tab.rows.length>=1)
@@ -103,21 +105,42 @@ function displaytheText(field)
   }
  }
 
- function checkCorrect()//checking the correctness of the sentence
+ function compareArray(array1,array2)
  {
-  table=document.getElementById("sentences");
-var SelectedSentence='';
+	 if(array1.length === array2.length && array1.sort().every(function(value, index) { return value === array2.sort()[index]})
+		 {
+			 return true;
+		 }
+		 else
+		 {
+			 return false;
+		 }
+	 
+)
+ }
+ 
+ function checkCorrect()//added check correctness of the sentence
+ {
+	table=document.getElementById("sentences");
+	var SelectedSentence='';
+	//get button 
+	
     //get Array value
     var len=table.rows[2].cells.length
     for(var k=0; k<len;k++)
     {
       SelectedSentence=SelectedSentence+table.rows[2].cells.item(i).innerHTML+" ";
     }
-    alert(SelectedSentence)
-//////
+ 
+var x=test2(SelectedSentence.trim());
+
+	compareSentences(x)
+	
   var sixRow=tab.insertRow(5);
   var ansCol= sixRow.insertCell(0);
-  if(compareArray(SelectedSentence)=='true')
+  
+  
+  if(compareSentences(x)=='true')
   {
     ansCol.innerHTML="Correct Answer !";
 
@@ -133,6 +156,46 @@ var SelectedSentence='';
 
 
  }
+ 
+ 
+ function test2(sentence)
+        {
+          var index=999;
+            var engSentence =getSentenceArray(); ["I told her that I bought a book yesterday","the teacher returned the book after she noticed the error","John ate an apple so did she","John ate an apple before afternoon", "some students like to study in the night", "John and Mary went to church","John went to church after eating","did he go to market","the woman who called my sister sells cosmetics","John goes to the library and studies"];
+            var words2=sentence.split("");
+
+            for(i=0;i<engSentence.length;i++)
+            {
+            var testSen=engSentence[i];
+            var words1=testSen.split(" ");
+            
+                if(compareArray(words1,words2))
+				{
+					index=i;
+					return i;
+				}
+            }
+			
+			return i
+        }
+		
+function getSentenceArray()
+{
+	let lang=document.getElementById("language").value
+	var testArr;
+	if("english"==lang)
+	{
+		testArr= ["I told her that I bought a book yesterday","the teacher returned the book after she noticed the error","John ate an apple so did she","John ate an apple before afternoon", "some students like to study in the night", "John and Mary went to church","John went to church after eating","did he go to market","the woman who called my sister sells cosmetics","John goes to the library and studies"];
+
+	}
+	else if("hindi"==lang)
+	{
+		testArr = ["राम और श्याम बाजार गयें", "राम सोया और श्याम भी", "मैंने उसे बताया कि राम सो रहा है","मैंने उसे बताया कि राम सो रहा है","राम खाकर सोया","बिल्लियों को मारकर कुत्ता सो गया","एक लाल किताब वहाँ है","एक बड़ी सी किताब वहाँ है"];
+
+	}
+	return testArr;
+
+}
 
 
  showAnswer(field)
@@ -146,63 +209,77 @@ var SelectedSentence='';
       field.value='Get Answers';
 
     }
-    table=document.getElementById("sentences");
-    var etRow=tab.insertRow(7);
-    var lastCol= etRow.insertCell(0);
-    lastCol.innerHTML="<p > </p>";
+	 table=document.getElementById("sentences");
+	//get Array value
+     len=table.rows[2].cells.length
+    for( k=0; k<len;k++)
+    {
+      SelectedSentence=SelectedSentence+table.rows[2].cells.item(i).innerHTML+" ";
+    }
+ 
+var y=test2(SelectedSentence.trim());
+
+	var yMap=createMap(document.getElementById("language").value)
+	 var checkArr=yMap.get(y.toString());
+   var etRow=table.insertRow(7);
+   for(i=0;i<checkArr.lenght;i++){
+    
+    var lastCol= etRow.insertCell(i);
+    lastCol.innerHTML="<p>"+checkArr[i]+"</p>";
+   }
 
  }
 
-function compareArray(sen)
-{
-  var text = '{"sentence":[' +
-  '{"combination":"John ate an apple before afternoon	" ,"value":"01"},' +
-  '{"combination":"before afternoon John ate an apple	","value":"01" },' +
-  '{"combination":"John before afternoon ate an apple " ,"value":"01"},' +
-  '{"combination":"some students like to study in the night","value":"02" },' +
-  '{"combination":"at night some students like to study","value":"02" },' +
-  '{"combination":"John and Mary went to church" ,"value":"02" },' +
-  '{"combination":"Mary and John went to church","value":"02"  },' +
-  '{"combination":"John went to church after eating","value":"02"  },' +
-  '{"combination":"after eating John went to church","value":"02"  },' +
-  '{"combination":"John after eating went to church","value":"02"  },' +
-  '{"combination":"did he go to market" ,"value":"02" },' +
-  '{"combination":"he did go to market" ,"value":"02" },' +
-  '{"combination":"the woman who called my sister sells cosmetics" ,"value":"02" },' +
-  '{"combination":"the woman who sells cosmetics called my sister","value":"02" },' +
-  '{"combination":"my sister who sells cosmetics called the woman" ,"value":"02" },' +
-  '{"combination":"my sister who called the woman sells cosmetics" ,"value":"02" },' +
-  '{"combination":"John goes to the library and studies" ,"value":"02" },' +
-  '{"combination":"John studies and goes to the library","value":"02"  },' +
-  '{"combination":"John ate an apple so did she","value":"02"  },' +
-  '{"combination":"she ate an apple so did John" ,"value":"02" },' +
-  '{"combination":"he teacher returned the book after she noticed the error","value":"02"  },' +
-  '{"combination":"the teacher noticed the error after she returned the book","value":"02"  },' +
-  '{"combination":"after the teacher returned the book she noticed the error","value":"02"  },' +
-  '{"combination":"after the teacher noticed the error she returned the book","value":"02"  },' +
-  '{"combination":"she returned the book after the teacher noticed the error","value":"02"  },' +
-  '{"combination":"she noticed the error after the teacher returned the book,"value":"02"  },' +
-  '{"combination":"after she returned the book the teacher noticed the error","value":"02"  },' +
-  '{"combination":"after she noticed the error the teacher returned the book ,"value":"02" },' +
-  '{"combination":"I told her that I bought a book yesterday","value":"02"  },' +
-  '{"combination":"I told her yesterday that I bought a book","value":"02"  },' +
-  '{"combination":"yesterday I told her that I bought a book","value":"02"  },' +
-  '{"combination":"I bought a book that I told her yesterday","value":"02"  },' +
-  '{"combination":"I bought a book yesterday that I told her","value":"02" 	 },' +
-  '{"combination":"yesterday I bought a book that I told her","value":"02"  }  ]}';
-
-
-obj = JSON.parse(text);
-var flag="false"
-for(var l=0;l<obj.sentence.length;l++)
-{
-  if(obj.sentence[l].combination==text.trim())
-  {
-    flag="true";
-    return falg
-  }
+function createMap(language)
+{	
+let contacts = new Map()
+if("english"==language){
+	
+contacts.set("0", ["John ate an apple before afternoon","John ate an apple before afternoon","John ate an apple before afternoon"]);
+contacts.set('1', {"John ate an apple before afternoon","John ate an apple before afternoon","John ate an apple before afternoon"});//set rest of combinations
+contacts.set('2', {"John ate an apple before afternoon","John ate an apple before afternoon","John ate an apple before afternoon"});//set rest of combinations
+contacts.set('3', {"John ate an apple before afternoon","John ate an apple before afternoon","John ate an apple before afternoon"});//set rest of combinations
+contacts.set('4', {"John ate an apple before afternoon","John ate an apple before afternoon","John ate an apple before afternoon"});//set rest of combinations
+contacts.set('5', {"John ate an apple before afternoon","John ate an apple before afternoon","John ate an apple before afternoon"});//set rest of combinations
+contacts.set('6', {"John ate an apple before afternoon","John ate an apple before afternoon","John ate an apple before afternoon"});//set rest of combinations
+contacts.set('7', {"John ate an apple before afternoon","John ate an apple before afternoon","John ate an apple before afternoon"});//set rest of combinations
+contacts.set('8', {"John ate an apple before afternoon","John ate an apple before afternoon","John ate an apple before afternoon"});//set rest of combinations
+contacts.set('9', {"John ate an apple before afternoon","John ate an apple before afternoon","John ate an apple before afternoon"});//set rest of combinations
+ return contacts;
 }
-return flag;
-
-
+else if("hindi"==language)
+{
+	contacts.set("0", ["John ate an apple before afternoon","John ate an apple before afternoon","John ate an apple before afternoon"]);
+contacts.set('1', {"John ate an apple before afternoon","John ate an apple before afternoon","John ate an apple before afternoon"});//set rest of combinations
+contacts.set('2', {"John ate an apple before afternoon","John ate an apple before afternoon","John ate an apple before afternoon"});//set rest of combinations
+contacts.set('3', {"John ate an apple before afternoon","John ate an apple before afternoon","John ate an apple before afternoon"});//set rest of combinations
+contacts.set('4', {"John ate an apple before afternoon","John ate an apple before afternoon","John ate an apple before afternoon"});//set rest of combinations
+contacts.set('5', {"John ate an apple before afternoon","John ate an apple before afternoon","John ate an apple before afternoon"});//set rest of combinations
+contacts.set('6', {"John ate an apple before afternoon","John ate an apple before afternoon","John ate an apple before afternoon"});//set rest of combinations
+contacts.set('7', {"John ate an apple before afternoon","John ate an apple before afternoon","John ate an apple before afternoon"});//set rest of combinations
+contacts.set('8', {"John ate an apple before afternoon","John ate an apple before afternoon","John ate an apple before afternoon"});//set rest of combinations
+contacts.set('9', {"John ate an apple before afternoon","John ate an apple before afternoon","John ate an apple before afternoon"});//set rest of combinations
+ return contacts;
 }
+}
+
+
+compareSentences(x,sentence)
+{
+	let xFlag='false';
+	let senMap=createMap();
+	let subArray=senMap.get(x.toString());
+	
+	for (let z=0;z<subArray.lenght;z++)
+	{
+		if(sentence.trim()==subArray[z])
+		{
+			xFlag='true';
+			return xFlag;
+		}
+	}
+	return xFlag;
+}
+
+
+
