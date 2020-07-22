@@ -119,7 +119,7 @@ function displaytheText(field)
 )
  }
  
- function checkCorrect()//added check correctness of the sentence
+ function checkCorrect()//added check correctness of the sentences
  {
 	table=document.getElementById("sentences");
 	var SelectedSentence='';
@@ -142,7 +142,7 @@ var x=test2(SelectedSentence.trim());
   
   if(compareSentences(x)=='true')
   {
-    ansCol.innerHTML="Correct Answer !";
+    ansCol.innerHTML="Right Answer !";//added right answer and wrong answer
 
   }
   else{
