@@ -284,3 +284,4 @@ compareSentences(x,sentence)
 
 
 //added all the Few functionalities to explicitly note that should be there while converting: 
+//added css and html and bootstrap
